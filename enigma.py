@@ -1,3 +1,16 @@
+import json
+
+'''
+todo: 
+1. make settings files import.
+2. function to generate new settings
+
+future?:
+- generate key list to an easily-read, exportable format
+- gui with visible plugboard / rotors
+- lose to the Allies
+'''
+
 rot1 = ("m", "p", "y", "u", "s", "e", "l", "c", "n", " ", "w", "z", "r", "k", "i", "t", "j", "d", "o", "b", "h", "x", "f", "q", "g", ".", "a", "v")
 rot2 = ("i", "b", "r", "g", ".", "f", "w", "x", "q", "n", "z", "o", "u", "e", "d", "t", "p", "a", " ", "k", "c", "s", "h", "v", "j", "m", "y", "l")
 rot3 = ("t", "c", " ", "a", "d", "h", "y", "o", "e", "k", "b", "p", "f", "m", "j", "u", "r", "v", "z", "w", ".", "s", "i", "q", "n", "l", "g", "x")
