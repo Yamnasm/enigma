@@ -1,5 +1,11 @@
 {
+    "rotor_list":{
+        "1": "mpyuselcn wzrkitjdobhxfqg.av",
+        "2": "ibrg.fwxqnzouedtpa kcshvjmyl",
+        "3": "tc adhyoekbpfmjurvzw.siqnlgx"
+    },
     "rotor_order": "123",
     "reflector": "abcdefghijklmnopqrstuvwxyz .",
-    "plug_settings": "abcdefghijklmnopqrstuvwxyz ."
+    "plug_settings": "abcdefghijklmnopqrstuvwxyz .",
+    "rotor_start": "abc"
 }

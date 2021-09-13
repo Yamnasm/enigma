@@ -1,28 +1,18 @@
 import json
 
 '''
-todo: 
-1. make the remaining machine-settings import.
-2. function to generate new settings
+todo:
+1. function to generate new settings
 
 future?:
 - generate key list to an easily-read, exportable format
 - gui with visible plugboard / rotors
 - lose to the Allies
 '''
-#our alphabet table used as a reference
-refe = ("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", ".")
-
-def get_rotor_settings():
-    with open("rotors.json", "r") as file:
-        data = json.load(file)
-        return [data[items] for items in data]
-
 def import_machine_settings():
     with open("machine-settings.json", "r") as file:
         data = json.load(file)
         return data
-    pass
     
 def sanitise(s):
     return "".join([i for i in s.lower() if i in refe])
@@ -60,7 +50,7 @@ def plugswap(settings, char):
     for i, swap in enumerate(settings):
         if char in swap:
             return settings[i][not swap.index(char)]
-    return char #allows for optional plugs
+    return char
 
 def enigmize_char(char, rotorset, reflector):
     letter_index = ord97(char)
@@ -86,16 +76,23 @@ def encrypt(message, rotorset, reflector, plugsetting, rotorstart):
         encoded_message += postrotor_swap
     return encoded_message
 
-plugsetting = ("ab", "cd", "ef", "gh", "ij", "kl", "mn", "op", "qr", "st", "uv", "wx", "yz", " .")
-
 if __name__ == "__main__":
+    refe = [chr(i) for i in range(97, 123)] + [" ", "."]
     settings = import_machine_settings()
 
-    #this is messy and i hate it
-    s = settings["reflector"]
-    s1 = s[:len(s)//2]
-    s2 = s[len(s)//2:]
-    reflector = (s1, s2)
+    rl = settings["rotor_list"]
+    ro = settings["rotor_order"]
+    rotors = [rl[ro[i]] for i in range(len(ro))]
 
-    rotors = get_rotor_settings()
-    print(encrypt(sanitise(input()), rotors, reflector, plugsetting, 0))
+    re = settings["reflector"]
+    reflector = [re[:len(re)//2], re[len(re)//2:]]
+
+    pl = settings["plug_settings"]
+    plugsetting = [pl[i:i+2] for i in range(0, len(pl), 2)]
+
+    # example: "abc" which will mean "1 2 3", (first number = last rotor)
+    # which is unmodulo'd as 843.
+    rs = settings["rotor_start"]
+    rotor_start = sum([(28 ** e) * i for e, i in enumerate([ord97(c) + 1 for c in rs[::-1]])])
+
+    print(encrypt(sanitise(input()), rotors, reflector, plugsetting, rotor_start))
